@@ -36,6 +36,8 @@
     "test": "npm run lint && tape test"
   },
   "devDependencies": {
+    "@babel/core": "^7.17.9",
+    "@babel/eslint-parser": "^7.17.0",
     "eslint": "1.2.1",
     "tape": "4.2.0"
   },
