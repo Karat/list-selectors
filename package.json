@@ -8,6 +8,7 @@
   "bin": {
     "list-selectors": "./bin.js"
   },
+  "type": "module",
   "license": "MIT",
   "version": "2.0.1",
   "description": "List the selectors used in your CSS. Use as a standalone function, CLI, or PostCSS plugin.",
@@ -33,22 +34,25 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint index.js test/index.js",
-    "test": "npm run lint && tape test"
+    "test": "tape -r esm test/**/*.js"
+  },
+  "peerDependencies": {
+    "postcss": "^8.4.12"
   },
   "devDependencies": {
     "@babel/core": "^7.17.9",
     "@babel/eslint-parser": "^7.17.0",
-    "eslint": "1.2.1",
-    "tape": "4.2.0"
+    "eslint": "^8.13.0",
+    "esm": "^3.2.25",
+    "tape": "^5.5.3"
   },
   "dependencies": {
-    "chalk": "^1.0",
-    "globby": "^2.0",
-    "lodash": "^4.17",
-    "minimist": "^1.0",
-    "postcss": "^5.0.2",
-    "postcss-reporter": "^1.0",
-    "postcss-selector-parser": "^1.1.2",
-    "request": "^2.0"
+    "chalk": "^5.0.1",
+    "globby": "^13.1.1",
+    "lodash-es": "^4.17.21",
+    "minimist": "^1.2.6",
+    "postcss-reporter": "^7.0.5",
+    "postcss-selector-parser": "^6.0.10",
+    "request": "^2.88.2"
   }
 }

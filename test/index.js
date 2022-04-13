@@ -1,24 +1,33 @@
 'use strict';
 
-var fs = require('fs');
-var test = require('tape');
-var _ = require('lodash');
-var postcss = require('postcss');
-var reporter = require('postcss-reporter');
-var listSelectors = require('../index.js');
+import { readFileSync } from 'fs';
+import test from 'tape';
+import { memoize } from 'lodash-es';
+import postcss from 'postcss';
+import reporter from 'postcss-reporter';
+import listSelectors from '../index.js';
 
-var getExpected = _.memoize(function(name) {
-  return require('./fixtures/' + name + '.expected.js');
+import { basicExpected } from './fixtures/basic.expected.js';
+import { readmeExpected } from './fixtures/readme.expected.js';
+
+const plugin = listSelectors.plugin;
+
+const getExpected = memoize(function(name) {
+  if (name === 'basic') {
+    return basicExpected;
+  } else if (name === 'readme') {
+    return readmeExpected;
+  }
 });
 
-var getFixture = _.memoize(function(name) {
-  return fs.readFileSync('test/fixtures/' + name + '.css', 'utf8');
+const getFixture = memoize(function(name) {
+  return readFileSync('test/fixtures/' + name + '.css', 'utf8');
 });
 
 function processFixture(name, opts, cb) {
-  var fixtureList;
+  let fixtureList;
   postcss()
-    .use(listSelectors.plugin(opts, function(list) { fixtureList = list; }))
+    .use(plugin(opts, function(list) { fixtureList = list; }))
     .use(reporter({ plugins: ['list-selectors'] }))
     .process(getFixture(name))
     .then(function() {
@@ -95,8 +104,9 @@ test('postcss plugin', function(t) {
 test('standalone function', function(t) {
   t.plan(2);
 
-  listSelectors('./test/fixtures/basic.css', function(standaloneResult) {
-    processFixture('basic', null, function(list) {
+  listSelectors('./test/fixtures/basic.css', (standaloneResult) => {
+    processFixture('basic', null, (list) => {
+      // t.comment('standalone', standaloneResult);
       t.deepEqual(list, standaloneResult,
         'standalone output and postcss output match'
       );
@@ -117,13 +127,13 @@ test('standalone function', function(t) {
 });
 
 test('skip keyframes', function(t) {
-  processFixture('keyframes', null, function(list) {
+  processFixture('keyframes', null, (list) => {
     t.deepEqual(list, {}, 'keyframes were skipped');
     t.end();
   });
 });
 
-var remoteBasic = 'https://raw.githubusercontent.com/davidtheclark/list-selectors/master/test/fixtures/basic.css';
+const remoteBasic = 'https://raw.githubusercontent.com/davidtheclark/list-selectors/master/test/fixtures/basic.css';
 
 test('remote', function(t) {
   listSelectors(remoteBasic, function(list) {

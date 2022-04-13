@@ -1,4 +1,4 @@
-module.exports = {
+export const readmeExpected = {
   'selectors': [
     'a[data-biscuit="dunderfunk"]',
     'div#antipattern:nth-child(3).horsehair [id="ding"]',

@@ -1,6 +1,8 @@
 'use strict';
 
-var standalone = require('./lib/standalone');
-standalone.plugin = require('./lib/plugin');
+import standalone from './lib/standalone.js';
+import plugin from './lib/plugin.js';
 
-module.exports = standalone;
+standalone.plugin = plugin;
+
+export default standalone;
