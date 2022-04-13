@@ -17,12 +17,6 @@
     "type": "git",
     "url": "https://github.com/davidtheclark/list-selectors.git"
   },
-  "keywords": [
-    "css",
-    "analytics",
-    "postcss",
-    "postcss-plugin"
-  ],
   "files": [
     "lib/*.js",
     "index.js",
@@ -34,7 +28,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint index.js test/index.js",
-    "test": "tape -r esm test/**/*.js"
+    "test": "node test/index.js"
   },
   "peerDependencies": {
     "postcss": "^8.4.12"

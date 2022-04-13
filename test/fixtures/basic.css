@@ -16,3 +16,6 @@ div {}
 .class::before {}
 .class:first-child {}
 .class:not(.class8) {}
+
+.class-1\.5 {}
+.class-\[36px\] {}

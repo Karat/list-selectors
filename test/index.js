@@ -106,7 +106,6 @@ test('standalone function', function(t) {
 
   listSelectors('./test/fixtures/basic.css', (standaloneResult) => {
     processFixture('basic', null, (list) => {
-      // t.comment('standalone', standaloneResult);
       t.deepEqual(list, standaloneResult,
         'standalone output and postcss output match'
       );
