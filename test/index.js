@@ -132,7 +132,7 @@ test('skip keyframes', function(t) {
   });
 });
 
-const remoteBasic = 'https://raw.githubusercontent.com/davidtheclark/list-selectors/master/test/fixtures/basic.css';
+const remoteBasic = 'https://raw.githubusercontent.com/Karat/list-selectors/master/test/fixtures/basic.css';
 
 test('remote', function(t) {
   listSelectors(remoteBasic, function(list) {
